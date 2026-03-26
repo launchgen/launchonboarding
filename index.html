@@ -558,9 +558,12 @@
     .pipeline-step--purple { background: var(--rich-purple); }
     .pipeline-steps-detail {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 20px;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 28px;
       font-size: .85rem;
+      align-items: start;
+      padding: 20px 0;
+      border-top: 1px solid #e8dff0;
     }
     .pipeline-col { display: flex; flex-direction: column; gap: 6px; }
     .pipeline-col__title {
@@ -585,7 +588,7 @@
       flex-shrink: 0;
       font-weight: 700;
     }
-    .pipeline-col--launch .pipeline-col__item::before { content: '↓'; color: var(--rich-purple); }
+    .pipeline-col--launch .pipeline-col__item::before { content: '↓'; color: var(--rich-purple); align-self: flex-start; margin-top: 1px; }
     @media (max-width: 600px) {
       .pipeline-arrows { flex-direction: column; }
       .pipeline-step {
@@ -798,11 +801,65 @@
       overflow: hidden;
       transition: max-height .4s ease, padding .3s ease;
     }
-    .accordion.open .accordion__body { max-height: 1000px; }
+    .accordion.open .accordion__body { max-height: 8000px; }
 
     .accordion__content { padding: 0 24px 24px; border-top: 1px solid #f0eaf5; }
 
     .sop-steps { counter-reset: step; list-style: none; margin-top: 16px; }
+
+    /* ── Flowchart ── */
+    .flow { display: flex; flex-direction: column; align-items: center; padding: 12px 0; }
+    .flow-phase {
+      width: 100%; background: var(--rich-purple); color: #fff;
+      font-size: .7rem; font-weight: 800; letter-spacing: .08em;
+      text-transform: uppercase; padding: 7px 14px; border-radius: 8px;
+      margin: 20px 0 2px; display: flex; align-items: center; gap: 8px;
+    }
+    .flow-phase:first-child { margin-top: 0; }
+    .flow-line {
+      width: 2px; height: 20px; background: #c9bdd6; flex-shrink: 0;
+    }
+    .flow-node {
+      width: 100%; background: #fff; border: 1.5px solid #e8dff0;
+      border-radius: 10px; padding: 12px 16px;
+      display: flex; gap: 12px; align-items: flex-start;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .flow-node__num {
+      background: var(--soft-orange); color: var(--dark-plum);
+      font-size: .72rem; font-weight: 800; min-width: 22px; height: 22px;
+      border-radius: 50%; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0; margin-top: 2px;
+    }
+    .flow-node__body strong { font-size: .88rem; display: block; }
+    .flow-node__body p { font-size: .81rem; color: #6b6278; margin-top: 2px; line-height: 1.45; }
+    .flow-node--decision {
+      background: #fffaf2; border: 2px solid var(--soft-orange);
+    }
+    .flow-diamond {
+      width: 28px; height: 28px; background: var(--soft-orange);
+      transform: rotate(45deg); border-radius: 4px;
+      flex-shrink: 0; margin-top: 4px;
+    }
+    .flow-branches {
+      display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap;
+    }
+    .flow-branch {
+      font-size: .74rem; font-weight: 700; padding: 3px 10px;
+      border-radius: 20px; display: inline-flex; align-items: center; gap: 4px;
+    }
+    .flow-branch--ok  { background: #d4f4e7; color: #1a7a4a; }
+    .flow-branch--nok { background: #fde8e8; color: #c0392b; }
+    .flow-branch--alt { background: #e8dff0; color: var(--rich-purple); }
+    .flow-node--kill {
+      background: #fff5f5; border: 1.5px dashed var(--soft-coral);
+    }
+    .flow-node--kill .flow-node__num { background: var(--soft-coral); color: #fff; }
+    .flow-node--success {
+      background: #f0faf5; border: 2px solid #1a7a4a;
+    }
+    .flow-node--success .flow-node__num { background: #1a7a4a; color: #fff; }
+    .flow-node--mint { background: var(--mint-green); border-color: #8dc7c2; }
     .sop-steps li {
       counter-increment: step;
       display: flex;
@@ -1233,7 +1290,6 @@
           <ul style="list-style:disc;padding-left:16px;font-size:.83rem;color:#6b6278;display:flex;flex-direction:column;gap:4px;">
             <li>Recruter 3 top profils (Q1)</li>
             <li>100% job descriptions et métriques définies</li>
-            <li>100% onboardé en 3–6 mois</li>
             <li>100% équipe upskillée</li>
           </ul>
         </div>
@@ -1709,7 +1765,17 @@
           </button>
           <div class="accordion__body">
             <div class="accordion__content">
-              <p style="color:#6b6278;font-style:italic;">Le contenu détaillé de ce process sera ajouté ici très prochainement.</p>
+              <div style="text-align:center;padding:16px 0 8px;display:flex;flex-direction:column;align-items:center;gap:14px;">
+                <p style="color:#6b6278;font-size:.9rem;margin-bottom:6px;">Consulte le flowchart complet du process Sourcing → Launch, étape par étape.</p>
+                <a href="https://modeler.camunda.io/share/d4a6a533-a121-4e3b-b446-cae014c033c2" target="_blank" rel="noopener"
+                   style="display:inline-flex;align-items:center;gap:10px;background:var(--rich-purple);color:#fff;font-weight:700;font-size:.9rem;padding:13px 28px;border-radius:10px;text-decoration:none;transition:opacity .2s;">
+                  🔗 Voir le Process Sourcing → Launch en détail
+                </a>
+                <a href="https://loom.com/share/folder/bbe7be50575249c79c084a595bdd1690" target="_blank" rel="noopener"
+                   style="display:inline-flex;align-items:center;gap:10px;background:var(--warm-orange);color:var(--dark-plum);font-weight:700;font-size:.9rem;padding:13px 28px;border-radius:10px;text-decoration:none;transition:opacity .2s;">
+                  🎬 Voir les tutoriels vidéos
+                </a>
+              </div>
             </div>
           </div>
         </div>
